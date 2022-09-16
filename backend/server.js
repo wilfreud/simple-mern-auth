@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 4000
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         app.listen(PORT, () => { 
-            console.log('Express server listening on port ', PORT)
+            console.log('Connected to DB & listening on port ', PORT)
         })
     })
     .catch((err) => console.error(err.message))
