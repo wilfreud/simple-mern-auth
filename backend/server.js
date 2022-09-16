@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const todosRoutes = require('./routes/todos')
 const mongoose = require('mongoose')
-
+const cors = require('cors')
 // Server setup
 const app = express()
 const PORT = process.env.PORT || 4000
@@ -21,6 +21,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // use json for parsing
 app.use(express.json())
+app.use(cors())
 
 // main Middleware
 app.use((req, res, next) => {

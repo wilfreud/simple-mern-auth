@@ -41,8 +41,8 @@ const getOneTodo = (req, res) => {
 
 // add todo
 const createToDo = (req ,res) => {
-    const {title, description} = req.body
-    if(!title || !description){
+    const {title, description=""} = req.body
+    if(!title){
         res.status(400).json({error : "Title is required"})
         return
     }
