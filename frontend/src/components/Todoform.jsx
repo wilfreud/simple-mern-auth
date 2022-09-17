@@ -1,8 +1,9 @@
 import {useState} from 'react'
 import axios from 'axios'
+import {useTodosContext} from '../hooks/useTodosContext'
 
 function Todoform(){
-
+    const {dispatch} = useTodosContext()
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [addFailed, setAddFailed] = useState(false)
@@ -19,16 +20,18 @@ function Todoform(){
         .then((res) => {
             if (res.status !== 200){         
                 setAddFailed(true)
-                console.log(res.response.data.error)
+                // console.log(res.response.data.error)
+                return
             }
-
+            // console.log(res)
+            dispatch({type : 'CREATE_TODO', payload : res.data.todo})
             setTitle('')
             setDescription('')  
             setAddFailed(false) 
         })
         .catch((err) => {
             setAddFailed(true)
-            console.log("Cateched : ", err.response.data.error || "Error reaching API")
+            // console.log("Cateched : ", err.response.data.error || "Error reaching API")
             setFailMessage(err.response.data.error || "Error reaching API")
         })
 

@@ -48,8 +48,8 @@ const createToDo = (req ,res) => {
     }
 
     Todo.create({title, description})
-        .then(() => {
-            res.status(200).json({message : "Todo created"})
+        .then((obj) => {
+            res.status(200).json({message : "Todo created", todo : obj})
         })
         .catch((err) => {
             console.log(err.message)

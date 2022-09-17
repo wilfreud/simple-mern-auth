@@ -2,19 +2,23 @@ import {useEffect, useState} from 'react'
 import axios from 'axios'
 import Todo from '../components/Todo'
 import Todoform from '../components/Todoform'
+import {useTodosContext} from '../hooks/useTodosContext'
+
 
 
 function Home(){
 
-    const [todos, setTodos] = useState(null)
+    const {todos, dispatch} = useTodosContext()
     const [fetchStatus, setFetchStatus] = useState(true)
 
     useEffect(() =>{
+        console.log("updating...")
         // setTimeout(() => {
             axios.get("http://localhost:4000/api/todos")
             .then((res) => {
                 if(res.status === 200){
-                    setTodos(res.data.data)
+                    dispatch({type : 'SET_TODOS', payload : res.data.data})
+                    // setTodos(res.data.data)
                     // console.log(res.data.data);
                     setFetchStatus(false)
                 }
@@ -23,7 +27,7 @@ function Home(){
                 console.error("Error fetching status :::", err)
             })
         // }, 1000)
-    }, [])
+    }, [dispatch])
 
     return (
         <div id="home" 
